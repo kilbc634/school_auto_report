@@ -14,6 +14,11 @@ class requestLib():
 
     def __request(self, method, node='', **kwargs):
         resp = self.SESSION.request(method, self.URL + node, **kwargs)
+        try:
+            print(resp)
+            print(resp.text)
+        except (UnicodeDecodeError, UnicodeDecodeError, UnicodeError):
+            print('[WARNING] Unknow unicode error from response')
         return resp
 
     #------------------------------------------------------------------------------------
@@ -30,15 +35,12 @@ class requestLib():
             'remember': remember
         }
         self.SESSION.headers.update({'referer': 'https://epidemic.ncut.edu.tw/login'})
-        resp = self.__request('get', 'login', data=data)
-        return resp
+        resp = self.__request('post', 'login', json=data)
+        respJson = json.loads(resp.text)
+        return respJson
 
-    def get_token(self, account, password):
+    def getToken(self, account, password):
         resp = self.login(account, password)
-        print(resp)
-        print(dir(resp))
-        print(resp.text)
-        print(resp.request.headers)
         token = resp['token']
         return token
 
@@ -54,6 +56,6 @@ if __name__ == "__main__":
     print('請登入系統（預設帳號密碼同學生篇），或於 user.cfg 檔案設置基本資料\n')
     myAccount = input('學號:')
     myPassword = input('密碼:')
-    userToken = Lib.get_token(myAccount, myPassword)
-    departments = Lib.get_departments(userToken)
+    userToken = Lib.getToken(myAccount, myPassword)
+    departments = json.loads(Lib.get_departments(userToken).text)
     print(departments)
