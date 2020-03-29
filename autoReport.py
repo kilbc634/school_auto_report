@@ -1,5 +1,7 @@
 import requests
 import json
+import time
+from configparser import ConfigParser
 
 class requestLib():
     def __init__(self):
@@ -49,13 +51,22 @@ class requestLib():
         resp = self.__request('get', 'departments')
         return resp
 
+    def post_tempData(self, token, userId, departmentId, departmentName, className,
+        morningTemp=34, morningActivity,
+        noonTemp=37.5, noonActivity,
+        nightTemp=34, nightActivity)
+
 
 
 if __name__ == "__main__":
     Lib = requestLib()
-    print('請登入系統（預設帳號密碼同學生篇），或於 user.cfg 檔案設置基本資料\n')
-    myAccount = input('學號:')
-    myPassword = input('密碼:')
+    config = ConfigParser()
+    config.read('user.ini')
+    myAccount = config['user']['account']
+    myPassword = config['user']['password']
+    if myAccount.find('(') == 0 or myPassword.find('(') == 0:
+        print('請登入系統（預設帳號密碼同學生篇），或於 user.ini 檔案設置基本資料')
+        myAccount = input('學號:')
+        myPassword = input('密碼:')
     userToken = Lib.getToken(myAccount, myPassword)
-    departments = json.loads(Lib.get_departments(userToken).text)
-    print(departments)
+
