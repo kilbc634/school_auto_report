@@ -55,7 +55,7 @@ curl --request POST \
 	"id": "3A123456-undefined",
 	"saveDate": "2020-03-01",
 	"morningTemp": 34,
-	"noonTemp": 34,
+	"noonTemp": 37.5,
 	"nightTemp": 34,
 	"isValid": false,
 	"morningManner": 0,
