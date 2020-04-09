@@ -15,7 +15,7 @@ curl --request POST \
 get_departments = """
 curl --request GET \
   --url https://epidemicapi.ncut.edu.tw/api/departments \
-  --header 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoi546L7pGG5a6HIiwidXNlcklkIjoiM0E1MTMxMDMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiM0E1MTMxMDMiLCJyb2xlSWQiOiIyIiwiZW1haWwiOiJUVVlONzY4MDFAR01BSUwuQ09NIiwiaG9tZVBhZ2VJZCI6IjAxMDEiLCJkZXBhcnRtZW50TmFtZSI6Iumbu-WtkOezuyIsImRlcGFydG1lbnRJZCI6IjE0IiwidHlwZSI6IjEiLCJjbGFzc05hbWUiOiLlm5vlrZDlm5vkuZkiLCJleHAiOjE1ODc1MTg3MDcsImlzcyI6ImFwaXRlbXBsYXRlLm5jdXQuZWR1LnR3IiwiYXVkIjoiYXBpdGVtcGxhdGUifQ.CX7dh-WthsyKwMJUKEZ1HduBB7aAoAxvV3kfa_nVoJM' \
+  --header 'authorization: Bearer <token>' \
   --header 'origin: https://epidemic.ncut.edu.tw' \
   --header 'referer: https://epidemic.ncut.edu.tw/bodyTemp'
 """
@@ -23,7 +23,7 @@ curl --request GET \
 get_config = """
 curl --request GET \
   --url https://epidemicapi.ncut.edu.tw/api/config \
-  --header 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoi546L7pGG5a6HIiwidXNlcklkIjoiM0E1MTMxMDMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiM0E1MTMxMDMiLCJyb2xlSWQiOiIyIiwiZW1haWwiOiJUVVlONzY4MDFAR01BSUwuQ09NIiwiaG9tZVBhZ2VJZCI6IjAxMDEiLCJkZXBhcnRtZW50TmFtZSI6Iumbu-WtkOezuyIsImRlcGFydG1lbnRJZCI6IjE0IiwidHlwZSI6IjEiLCJjbGFzc05hbWUiOiLlm5vlrZDlm5vkuZkiLCJleHAiOjE1ODc1MTg3MDcsImlzcyI6ImFwaXRlbXBsYXRlLm5jdXQuZWR1LnR3IiwiYXVkIjoiYXBpdGVtcGxhdGUifQ.CX7dh-WthsyKwMJUKEZ1HduBB7aAoAxvV3kfa_nVoJM' \
+  --header 'authorization: Bearer <token>' \
   --header 'origin: https://epidemic.ncut.edu.tw' \
   --header 'referer: https://epidemic.ncut.edu.tw/bodyTemp'
 """
@@ -31,7 +31,7 @@ curl --request GET \
 get_activityData = """
 curl --request GET \
   --url https://epidemicapi.ncut.edu.tw/api/activityData \
-  --header 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoi546L7pGG5a6HIiwidXNlcklkIjoiM0E1MTMxMDMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiM0E1MTMxMDMiLCJyb2xlSWQiOiIyIiwiZW1haWwiOiJUVVlONzY4MDFAR01BSUwuQ09NIiwiaG9tZVBhZ2VJZCI6IjAxMDEiLCJkZXBhcnRtZW50TmFtZSI6Iumbu-WtkOezuyIsImRlcGFydG1lbnRJZCI6IjE0IiwidHlwZSI6IjEiLCJjbGFzc05hbWUiOiLlm5vlrZDlm5vkuZkiLCJleHAiOjE1ODc1MTg3MDcsImlzcyI6ImFwaXRlbXBsYXRlLm5jdXQuZWR1LnR3IiwiYXVkIjoiYXBpdGVtcGxhdGUifQ.CX7dh-WthsyKwMJUKEZ1HduBB7aAoAxvV3kfa_nVoJM' \
+  --header 'authorization: Bearer <token>' \
   --header 'origin: https://epidemic.ncut.edu.tw' \
   --header 'referer: https://epidemic.ncut.edu.tw/bodyTemp'
 """
@@ -39,7 +39,7 @@ curl --request GET \
 get_temperatureSurveys = """
 curl --request GET \
   --url https://epidemicapi.ncut.edu.tw/api/temperatureSurveys/3A513103-2020-03-01 \
-  --header 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoi546L7pGG5a6HIiwidXNlcklkIjoiM0E1MTMxMDMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiM0E1MTMxMDMiLCJyb2xlSWQiOiIyIiwiZW1haWwiOiJUVVlONzY4MDFAR01BSUwuQ09NIiwiaG9tZVBhZ2VJZCI6IjAxMDEiLCJkZXBhcnRtZW50TmFtZSI6Iumbu-WtkOezuyIsImRlcGFydG1lbnRJZCI6IjE0IiwidHlwZSI6IjEiLCJjbGFzc05hbWUiOiLlm5vlrZDlm5vkuZkiLCJleHAiOjE1ODc1MTg3MDcsImlzcyI6ImFwaXRlbXBsYXRlLm5jdXQuZWR1LnR3IiwiYXVkIjoiYXBpdGVtcGxhdGUifQ.CX7dh-WthsyKwMJUKEZ1HduBB7aAoAxvV3kfa_nVoJM' \
+  --header 'authorization: Bearer <token>' \
   --header 'origin: https://epidemic.ncut.edu.tw' \
   --header 'referer: https://epidemic.ncut.edu.tw/bodyTemp'
 """
@@ -47,7 +47,7 @@ curl --request GET \
 post_data = """
 curl --request POST \
   --url https://epidemicapi.ncut.edu.tw/api/temperatureSurveys \
-  --header 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoi546L7pGG5a6HIiwidXNlcklkIjoiM0E1MTMxMDMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiM0E1MTMxMDMiLCJyb2xlSWQiOiIyIiwiZW1haWwiOiJUVVlONzY4MDFAR01BSUwuQ09NIiwiaG9tZVBhZ2VJZCI6IjAxMDEiLCJkZXBhcnRtZW50TmFtZSI6Iumbu-WtkOezuyIsImRlcGFydG1lbnRJZCI6IjE0IiwidHlwZSI6IjEiLCJjbGFzc05hbWUiOiLlm5vlrZDlm5vkuZkiLCJleHAiOjE1ODc1MTg3MDcsImlzcyI6ImFwaXRlbXBsYXRlLm5jdXQuZWR1LnR3IiwiYXVkIjoiYXBpdGVtcGxhdGUifQ.CX7dh-WthsyKwMJUKEZ1HduBB7aAoAxvV3kfa_nVoJM' \
+  --header 'authorization: Bearer <token>' \
   --header 'content-type: application/json;charset=UTF-8' \
   --header 'origin: https://epidemic.ncut.edu.tw' \
   --header 'referer: https://epidemic.ncut.edu.tw/bodyTemp' \
