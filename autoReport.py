@@ -57,10 +57,10 @@ class requestLib():
     def checkPosted(self, token, userId, date):
         resp = self.get_tempData(token, userId, date)
         if len(resp.text) == 0:
-            print('{userId}-{date} date not exist'.format(userId=userId, date=date))
+            print('[Info] {userId}-{date} 尚未填寫'.format(userId=userId, date=date))
             return False
         else:
-            print('{userId}-{date} date exist'.format(userId=userId, date=date))
+            print('[Info] {userId}-{date} 已經填寫'.format(userId=userId, date=date))
             return True
 
     #-------------------------------------------------------------------------------------
@@ -112,7 +112,7 @@ class requestLib():
             respJson = {
                 "success": False,
                 "messages": [
-                    "{userId} {date} 當天資料已存在".format(userId=userId, date=date)
+                    "[Error] {userId}-{date} 當天資料已存在".format(userId=userId, date=date)
                 ]
             }
             return respJson
