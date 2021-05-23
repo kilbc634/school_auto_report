@@ -1,6 +1,5 @@
 import requests
 import json
-import time
 from configparser import ConfigParser
 import datetime
 
@@ -28,7 +27,7 @@ class requestLib():
                 print(resp)
                 print(resp.text)
             except (UnicodeDecodeError, UnicodeDecodeError, UnicodeError):
-                print('[WARNING] Unknow unicode error from response')
+                print('[Error] Unknow unicode error from response')
         return resp
 
     #------------------------------------------------------------------------------------
@@ -57,10 +56,12 @@ class requestLib():
     def checkPosted(self, token, userId, date):
         resp = self.get_tempData(token, userId, date)
         if len(resp.text) == 0:
-            print('{userId}-{date} date not exist'.format(userId=userId, date=date))
+            if DEBUG:
+                print('[Info] {userId}-{date} date not exist'.format(userId=userId, date=date))
             return False
         else:
-            print('{userId}-{date} date exist'.format(userId=userId, date=date))
+            if DEBUG:
+                print('[Info] {userId}-{date} date exist'.format(userId=userId, date=date))
             return True
 
     #-------------------------------------------------------------------------------------
@@ -77,7 +78,7 @@ class requestLib():
 
     def post_tempData(self, token, userId, departmentId, departmentName, className, date,
         morningTemp=34, morningActivity='',
-        noonTemp=37.5, noonActivity='',
+        noonTemp=34, noonActivity='',
         nightTemp=34, nightActivity='',
         method='post'):
         self.SESSION.headers.update({'authorization': 'Bearer %s' % token})
@@ -97,7 +98,7 @@ class requestLib():
             "morningActivity": morningActivity,
             "noonActivity": noonActivity,
             "nightActivity": nightActivity,
-            "measureTime": "18:00",
+            "measureTime": "20:00",
             "userId": userId,
             "departmentId": departmentId,
             "className": className,
@@ -107,6 +108,10 @@ class requestLib():
         resp = self.__request(method, 'temperatureSurveys', json=data)
         if resp.status_code == 200:
             respJson = json.loads(resp.text)
+            respJson["messages"] = [
+                "{userId} {date} 已填入正常體溫".format(userId=userId, date=date)
+            ]
+            print("[OK] {msg}".format(msg=respJson["messages"][0]))
             return respJson
         elif resp.status_code == 500:
             respJson = {
@@ -115,6 +120,7 @@ class requestLib():
                     "{userId} {date} 當天資料已存在".format(userId=userId, date=date)
                 ]
             }
+            print("[Warning] {msg}".format(msg=respJson["messages"][0]))
             return respJson
         else:
             resp.raise_for_status()
@@ -131,12 +137,15 @@ if __name__ == "__main__":
 
     myAccount = user['user']['account']
     myPassword = user['user']['password']
-    if myAccount.find('(') == 0 or myPassword.find('(') == 0:
-        print('請登入系統（預設帳號密碼同學生篇），或於 user.ini 檔案設置基本資料')
-        myAccount = input('學號:')
-        myPassword = input('密碼:')
-
-    userToken = Lib.getToken(myAccount, myPassword)
+    token = user['user']['token']
+    if token:
+        userToken = token
+    else:
+        if myAccount.find('(') == 0 or myPassword.find('(') == 0:
+            print('請登入系統（預設帳號密碼同學生篇），或於 user.ini 檔案設置基本資料')
+            myAccount = input('學號:')
+            myPassword = input('密碼:')
+        userToken = Lib.getToken(myAccount, myPassword)
 
     nowDate = datetime.date.today()
     nowWeek = nowDate.weekday()    #Output will is 0 = Monday ... 6 = Sunday
@@ -149,20 +158,14 @@ if __name__ == "__main__":
 
     res = Lib.post_tempData(userToken, myAccount, envId, envName, className, str(nowDate),
         morningActivity=morningDo, noonActivity=noonDo, nightActivity=nightDo)
-    if res['success'] == False:
-        print('[Error] {msg}'.format(msg=res['messages'][0]))
 
-    if recordDay != 0:
+    if recordDay > 0:
         for backIndex in range(recordDay):
             backDay = backIndex + 1
             backDate = nowDate - datetime.timedelta(days=backDay)
             backWeek = backDate.weekday()
-            posted = Lib.checkPosted(userToken, myAccount, str(backDate))
-            if posted == False:
-                morningDo = template[WEEKS_STR[backWeek]]['morning']
-                noonDo = template[WEEKS_STR[backWeek]]['noon']
-                nightDo = template[WEEKS_STR[backWeek]]['night']
-                res = Lib.post_tempData(userToken, myAccount, envId, envName, className, str(backDate),
-                    morningActivity=morningDo, noonActivity=noonDo, nightActivity=nightDo)
-                if res['success'] == False:
-                    print('[Error] {msg}'.format(msg=res['messages'][0]))
+            morningDo = template[WEEKS_STR[backWeek]]['morning']
+            noonDo = template[WEEKS_STR[backWeek]]['noon']
+            nightDo = template[WEEKS_STR[backWeek]]['night']
+            res = Lib.post_tempData(userToken, myAccount, envId, envName, className, str(backDate),
+                morningActivity=morningDo, noonActivity=noonDo, nightActivity=nightDo)
